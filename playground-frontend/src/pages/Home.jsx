@@ -1,12 +1,14 @@
 import React from 'react';
+import Media1 from '../components/home-components/Media1';
+import Content1 from '../components/home-components/Content1';
 
 function Home() {
   return (
-    <div className="bg-black text-white w-full h-screen flex flex-col items-center">
-      <h1 className="text-4xl font-bold text-center mb-4">Welcome to GAN Playground</h1>
-      <p className="text-lg text-gray-300 text-center">
-        Explore the exciting world of Generative Adversarial Networks (GANs) in this interactive playground!
-      </p>
+    <div className="bg-black text-white w-full h-screen px-4 items-center py-4">
+      <div className='flex flex-row ml-[15rem] mt-[5rem] mr-[15rem]'>
+        <Media1 />
+        <Content1 />
+      </div>
     </div>
   );
 }

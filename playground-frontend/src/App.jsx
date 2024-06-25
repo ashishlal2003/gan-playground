@@ -6,7 +6,7 @@ import Home from './pages/Home';
 import Playground from './pages/Playground';
 import Gallery from './pages/Gallery';
 import Community from './pages/Community';
-import Profile from './pages/Profile';
+import Docs from './pages/Docs';
 
 const App = () => {
     return (
@@ -17,7 +17,7 @@ const App = () => {
                 <Route path="/playground" element={<Playground/>} />
                 <Route path="/gallery" element={<Gallery/>} />
                 <Route path="/community" element={<Community/>} />
-                <Route path="/profile" element={<Profile/>} />
+=                <Route path="/docs" element={<Docs/>} />
             </Routes>
             <Footer />
         </Router>
