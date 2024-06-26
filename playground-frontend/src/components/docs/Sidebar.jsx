@@ -5,7 +5,6 @@ function Sidebar() {
     <aside className='text-white h-screen'>
       <nav className='h-full flex flex-col bg-red border-r shadow-sm'>
         <div className="p-4 pb-2 flex justify-between items-center">
-          <img src="https://img.logoipsum.com/243.svg" alt="" />
           <button>
             
           </button>
