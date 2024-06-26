@@ -8,7 +8,7 @@ export default function ResNavBar() {
         <NavLink
           exact
           to="/"
-          className="rounded-md text-lg font-medium text-gray-300 px-3 py-2 hover:bg-gray-700 hover:text-white"
+          className="rounded-md text-lg font-medium text-gray-300 px-3 py-2 hover:bg-gray-700 hover:text-white translate-x-4"
           activeClassName="bg-gray-900 text-white"
         >
           Home

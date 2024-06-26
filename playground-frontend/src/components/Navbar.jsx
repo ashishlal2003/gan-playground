@@ -3,9 +3,10 @@ import { NavLink } from 'react-router-dom';
 import Logo from '../assets/logo.png'
 import ResNavBar from './ResNavBar';
 import { IoMenu } from "react-icons/io5";
+import { RxCross2 } from "react-icons/rx";
 
 function Navbar() {
-  const [isOpen , setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <nav className="bg-black">
@@ -62,10 +63,15 @@ function Navbar() {
             Get Started
           </NavLink>
         </div>
-        <IoMenu className='text-white text-4xl absolute z-40 right-4 block sm:hidden' onClick={() => setIsOpen(!isOpen)}/>
+        <IoMenu className='text-white text-4xl absolute right-4 block sm:hidden' onClick={() => setIsOpen(!isOpen)} />
+
         {
-          isOpen && 
-          <ResNavBar />
+          isOpen &&
+          <div className='relative '>
+            <RxCross2 className='text-white text-4xl absolute z-40 right-0 top-[-10px] block sm:hidden' onClick={() => setIsOpen(!isOpen)} />
+            <ResNavBar />
+          </div>
+
         }
       </div>
     </nav>
