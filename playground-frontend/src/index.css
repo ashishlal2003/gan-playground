@@ -9,7 +9,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scrollbar-width: thin;
-  scrollbar-color: #9333EA #a576d1;
 }
 
 code {
@@ -18,19 +17,5 @@ code {
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: #fff;
-  border-radius: 16px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #1F2937;
-  border-radius: 16px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  width: 0px;
 }
