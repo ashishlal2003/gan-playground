@@ -2,14 +2,24 @@ import React, { useState } from 'react';
 
 function Sidebar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isSimpleGANDropdownOpen, setIsSimpleGANDropdownOpen] = useState(false);
+  const [isDCGANDropdownOpen, setIsDCGANDropdownOpen] = useState(false);
+  const [isWGANDropdownOpen, setIsWGANDropdownOpen] = useState(false);
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
+  const toggleSimpleGANDropdown = () => {
+    setIsSimpleGANDropdownOpen(!isSimpleGANDropdownOpen);
+  };
+
+  const toggleDCGANDropdown = () => {
+    setIsDCGANDropdownOpen(!isDCGANDropdownOpen);
+  };
+
+  const toggleWGANDropdown = () => {
+    setIsWGANDropdownOpen(!isWGANDropdownOpen);
   };
 
   return (
@@ -17,7 +27,7 @@ function Sidebar() {
       <button
         aria-controls="sidebar-multi-level-sidebar"
         type="button"
-        className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+        className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
         onClick={toggleSidebar}
       >
         <span className="sr-only">Open sidebar</span>
@@ -41,17 +51,17 @@ function Sidebar() {
         className={`fixed top-0 left-0 z-40 w-64 h-screen transition-transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} sm:translate-x-0`}
         aria-label="Sidebar"
       >
-        <div className="h-screen px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+        <div className="h-screen px-3 py-4 overflow-y-auto border-r bg-black">
           <ul className="space-y-2 font-medium">
-            <p className='ml-2'>Documentation</p>
+            <p className='ml-2 font-bold'>DOCUMENTATION</p>
             <li>
               <button
                 type="button"
                 className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                 aria-controls="dropdown-example"
-                onClick={toggleDropdown}
+                onClick={toggleSimpleGANDropdown}
               >
-                <span className="flex-1 text-left rtl:text-right whitespace-nowrap">E-commerce</span>
+                <span className="flex-1 text-left rtl:text-right whitespace-nowrap">Simple GAN</span>
                 <svg
                   className="w-3 h-3"
                   aria-hidden="true"
@@ -62,29 +72,123 @@ function Sidebar() {
                   <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
                 </svg>
               </button>
-              <ul id="dropdown-example" className={`py-2 space-y-2 ${isDropdownOpen ? '' : 'hidden'}`}>
+              <ul id="dropdown-example" className={`py-2 space-y-2 ${isSimpleGANDropdownOpen ? '' : 'hidden'}`}>
                 <li>
                   <a
-                    href="#"
+                    href="/docs/simple-gan/theory"
                     className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                   >
-                    Products
+                    Theory
                   </a>
                 </li>
                 <li>
                   <a
-                    href="#"
+                    href="/docs/simple-gan/usage"
                     className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                   >
-                    Billing
+                    Usage
                   </a>
                 </li>
                 <li>
                   <a
-                    href="#"
+                    href="/docs/simple-gan/code"
                     className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                   >
-                    Invoice
+                    Code Snippet
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+
+            <li>
+              <button
+                type="button"
+                className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                aria-controls="dropdown-example"
+                onClick={toggleDCGANDropdown}
+              >
+                <span className="flex-1 text-left rtl:text-right whitespace-nowrap">DC-GAN</span>
+                <svg
+                  className="w-3 h-3"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 10 6"
+                >
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
+                </svg>
+              </button>
+              <ul id="dropdown-example" className={`py-2 space-y-2 ${isDCGANDropdownOpen ? '' : 'hidden'}`}>
+                <li>
+                  <a
+                    href="/docs/dcgan/theory"
+                    className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                  >
+                    Theory
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/docs/dcgan/usage"
+                    className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                  >
+                    Usage
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/docs/dcgan/code"
+                    className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                  >
+                    Code Snippet
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+
+            <li>
+              <button
+                type="button"
+                className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                aria-controls="dropdown-example"
+                onClick={toggleWGANDropdown}
+              >
+                <span className="flex-1 text-left rtl:text-right whitespace-nowrap">W-GAN</span>
+                <svg
+                  className="w-3 h-3"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 10 6"
+                >
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
+                </svg>
+              </button>
+              <ul id="dropdown-example" className={`py-2 space-y-2 ${isWGANDropdownOpen ? '' : 'hidden'}`}>
+                <li>
+                  <a
+                    href="/docs/wgan/theory"
+                    className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                  >
+                    Theory
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/docs/wgan/usage"
+                    className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                  >
+                    Usage
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/docs/wgan/code"
+                    className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                  >
+                    Code Snippet
                   </a>
                 </li>
               </ul>
@@ -92,6 +196,14 @@ function Sidebar() {
           </ul>
         </div>
       </aside>
+
+      {/* Overlay to close the sidebar when clicking outside on small screens */}
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0 z-30 bg-black opacity-50 sm:hidden"
+          onClick={toggleSidebar}
+        ></div>
+      )}
     </>
   );
 }
