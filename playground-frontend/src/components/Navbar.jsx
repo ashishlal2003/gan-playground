@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import Logo  from '../assets/logo.png'
 
 function Navbar() {
   return (
@@ -7,7 +8,7 @@ function Navbar() {
       <div className="flex justify-between items-center py-3 max-w-7xl mx-auto px-4">
         <div className="flex-shrink-0">
           <NavLink to="/">
-            <img className="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" />
+            <img className="h-[6rem] w-auto" src={Logo} alt="Your Company" />
           </NavLink>
         </div>
 
