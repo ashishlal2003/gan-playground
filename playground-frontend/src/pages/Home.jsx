@@ -2,6 +2,7 @@ import React from 'react';
 import Media1 from '../components/home/Media1';
 import Content1 from '../components/home/Content1';
 import HIW from '../components/home/HIW';
+import InteractiveLearning from '../components/home/InteractiveLearning';
 
 function Home() {
   return (
@@ -10,8 +11,10 @@ function Home() {
         <Media1 />
         <Content1 />
       </div>
-      <div className=' flex flex-row justify-center h-[20rem]'>
+      <div className=''>
+        <InteractiveLearning />
         <HIW />
+
       </div>
     </div>
   );
