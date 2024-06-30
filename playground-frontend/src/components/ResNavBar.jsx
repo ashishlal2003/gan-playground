@@ -3,8 +3,8 @@ import { NavLink } from 'react-router-dom';
 
 export default function ResNavBar() {
   return (
-    <div className="sm:hidden flex sm:items-center sm:justify-center flex-grow relative">
-      <div className="flex flex-col gap-4 space-x-4 items-start absolute h-auto right-[-10px] top-[-35px] w-[200px] pt-20 p-10 bg-black">
+    <div className="sm:hidden flex sm:items-center sm:justify-center flex-grow relative z-50">
+      <div className="flex flex-col gap-4 space-x-4 items-start absolute h-auto right-[-10px] top-[-35px] w-[250px] pt-20 p-10 bg-slate-900 rounded-lg">
         <NavLink
           exact
           to="/"

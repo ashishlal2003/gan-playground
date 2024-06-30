@@ -27,7 +27,7 @@ function HIW() {
   return (
     <div className="md:ml-[5rem] my-52 place-content-center mx-[20px] flex flex-col items-center gap-20">
       <div className='flex items-center justify-center gap-[8rem]'>
-        <img src={HIWimg} />
+        <img src={HIWimg} alt = "img" className='hidden md:block'/>
         <div className='flex flex-col items-start'>
           <h1 className="font-ibm-plex-sans font-bold xl:text-6xl lg:text-5xl md:text-6xl text-5xl">How it Works</h1>
           <p className="flex justify-center py-4 font-ibm-plex-sansmt-4 xl:text-lg lg:text-md text-gray-500">A quick guide to understand the inner workings.</p>
@@ -40,7 +40,7 @@ function HIW() {
         </div>
       </div>
 
-      <div className='flex gap-28'>
+      <div className='flex flex-col md:flex-row gap-28'>
         {data.map((info, index) => (
           <div className=''>
             <img src={info.icon} alt='icon' />
