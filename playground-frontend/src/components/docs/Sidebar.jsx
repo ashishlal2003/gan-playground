@@ -24,11 +24,11 @@ function Sidebar() {
 
   return (
     <div className=''>
-      <div className='translate-y-24 w-[94%] fixed ml-3 border-b-[0.1px] border-white'>
+      <div className='inline-flex sm:hidden translate-y-24 w-[94%] ml-3 border-b-[0.1px] border-white'>
         <button
           aria-controls="sidebar-multi-level-sidebar"
           type="button"
-          className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+          className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg  hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
           onClick={toggleSidebar}
         >
           <span className="sr-only">Open sidebar</span>
