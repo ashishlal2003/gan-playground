@@ -1,4 +1,5 @@
-fastapi
-uvicorn
+Flask
 torch
 torchvision
+numpy
+pandas==1.5.3

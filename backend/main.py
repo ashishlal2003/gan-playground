@@ -1,15 +1,15 @@
-from fastapi import FastAPI
-from api.dcgan_router import router as dcgan_router
-from api.wgan_gp_router import router as wgan_gp_router
+from flask import Flask
+import multiprocessing
+import routes
 
+app = Flask(__name__)
 
-app = FastAPI()
+# Register routes from routes module
+app.add_url_rule('/', view_func=routes.hello)
+app.add_url_rule('/train', view_func=routes.train, methods=['POST'])
+app.add_url_rule('/generate', view_func=routes.generate, methods=['GET'])
+app.add_url_rule('/image/<filename>', view_func=routes.get_image, methods=['GET'])
 
-# Include routers for DCGAN and WGAN-GP here
-app.include_router(dcgan_router, prefix="/api")
-app.include_router(wgan_gp_router, prefix="/api")
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
-
+if __name__ == '__main__':
+    multiprocessing.set_start_method('spawn')
+    app.run(debug=True)
