@@ -20,7 +20,7 @@ def train():
 
 @app.route('/generate', methods=['GET'])
 def generate():
-    num_images = int(request.args.get('num_images', 1))
+    num_images = int(request.json.get('num_images', 1))
     fake_images = generate_images(num_images)
     output_dir = 'output/generated_images'
     os.makedirs(output_dir, exist_ok=True)
