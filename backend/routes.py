@@ -1,9 +1,12 @@
 from flask import Flask, jsonify, request, send_file
 import os
+from dotenv import load_dotenv
 from train.train_dcgan import train_dcgan, generate_images
 from torchvision.utils import save_image
 
 app = Flask(__name__)
+
+load_dotenv()
 
 
 @app.route("/")
@@ -11,10 +14,14 @@ def hello():
     return "Hello, World!"
 
 
+dataset_path = os.getenv("DATASET_PATH")
+
+
 @app.route("/train", methods=["POST"])
 def train():
     num_epochs = request.json.get("num_epochs", 5)
-    dataroot = r"E:\Projects\gan-playground\dataset"
+    # dataroot = r"E:\Projects\gan-playground\dataset"
+    dataroot = dataset_path
     print("Training starting...")
     train_dcgan(dataroot, num_epochs)
     return jsonify({"message": "Training started"}), 200
