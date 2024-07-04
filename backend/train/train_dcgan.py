@@ -5,6 +5,9 @@ from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 from torchvision.utils import save_image
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 from models.dcgan import Generator, Discriminator
 
@@ -14,7 +17,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 nz = 100  # Size of z latent vector (i.e. size of generator input)
 ngf = 64  # Size of feature maps in generator
 ndf = 64  # Size of feature maps in discriminator
-nc = 3    # Number of color channels in the training images. For color images this is 3
+nc = int(os.getenv("nc"))    # Number of color channels in the training images. For color images this is 3
 
 # Initialize the model
 netG = Generator(nz, ngf, nc).to(device)
