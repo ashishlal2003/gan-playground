@@ -14,24 +14,24 @@ from models.dcgan import Generator, Discriminator
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Hyperparameters
-nz = 100  # Size of z latent vector (i.e. size of generator input)
+# nz = 100  # Size of z latent vector (i.e. size of generator input)
 ngf = 64  # Size of feature maps in generator
 ndf = 64  # Size of feature maps in discriminator
 nc = int(os.getenv("nc"))    # Number of color channels in the training images. For color images this is 3
 
 # Initialize the model
-netG = Generator(nz, ngf, nc).to(device)
-netD = Discriminator(nc, ndf).to(device)
+# netG = Generator(nz, ngf, nc).to(device)
+# netD = Discriminator(nc, ndf).to(device)
 
 # Initialize BCELoss function
 criterion = nn.BCELoss()
 
 # Create batch of latent vectors that we will use to visualize the progression of the generator
-fixed_noise = torch.randn(64, nz, 1, 1, device=device)
+# fixed_noise = torch.randn(64, nz, 1, 1, device=device)
 
 # Setup Adam optimizers for both G and D
-optimizerD = optim.Adam(netD.parameters(), lr=0.0002, betas=(0.5, 0.999))
-optimizerG = optim.Adam(netG.parameters(), lr=0.0002, betas=(0.5, 0.999))
+# optimizerD = optim.Adam(netD.parameters(), lr=0.0002, betas=(0.5, 0.999))
+# optimizerG = optim.Adam(netG.parameters(), lr=0.0002, betas=(0.5, 0.999))
 
 # Load the dataset
 transform = transforms.Compose([
@@ -47,9 +47,15 @@ os.makedirs(output_dir, exist_ok=True)
 
 
 # Modify the train_dcgan function to accept dataroot as a parameter
-def train_dcgan(dataroot, num_epochs):
+def train_dcgan(dataroot, num_epochs, lr, nz):
     dataset = datasets.ImageFolder(root=dataroot, transform=transform)
     dataloader = DataLoader(dataset, batch_size=128, shuffle=True, num_workers=4)
+
+    netG = Generator(nz, ngf, nc).to(device)
+    netD = Discriminator(nc, ndf).to(device)
+
+    optimizerD = optim.Adam(netD.parameters(), lr=lr, betas=(0.5, 0.999))
+    optimizerG = optim.Adam(netG.parameters(), lr=lr, betas=(0.5, 0.999))
 
     for epoch in range(num_epochs):
         for i, data in enumerate(dataloader, 0):
