@@ -1,8 +1,10 @@
 from flask import Flask
 import multiprocessing
 import routes
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 # Register routes from routes module
 app.add_url_rule('/', view_func=routes.hello)

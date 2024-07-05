@@ -4,3 +4,4 @@ torchvision==0.15.2
 numpy==1.26.3
 pandas==1.5.3
 python-dotenv==1.0.1
+Flask-Cors==4.0.1
