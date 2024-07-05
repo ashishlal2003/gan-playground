@@ -19,11 +19,14 @@ dataset_path = os.getenv("DATASET_PATH")
 
 @app.route("/train", methods=["POST"])
 def train():
-    num_epochs = request.json.get("num_epochs", 5)
-    # dataroot = r"E:\Projects\gan-playground\dataset"
+
+    data = request.json
+    num_epochs = data.get("num_epochs", 5)
+    lr = data.get("lr", 0.0002)
+    nz = data.get("nz", 100)
     dataroot = dataset_path
     print("Training starting...")
-    train_dcgan(dataroot, num_epochs)
+    train_dcgan(dataroot, num_epochs, lr, nz)
     return jsonify({"message": "Training started"}), 200
 
 
