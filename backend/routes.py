@@ -16,9 +16,6 @@ def hello():
 
 dataset_path = os.getenv("DATASET_PATH")
 
-@app.route('/images/<filename>')
-def get_image(filename):
-    return send_from_directory("output", filename)
 
 @app.route("/train", methods=["POST"])
 def train():
@@ -50,12 +47,25 @@ def generate():
 @app.route("/image/<filename>", methods=["GET"])
 def get_image(filename):
     return send_file(
-        os.path.join("output/generated_images", filename), mimetype="image/png"
+        os.path.join("output", filename), mimetype="image/png"
     )
+
+# @app.route("/image/<filename>", methods=["GET"])
+# def get_image(filename):
+#     return send_file(
+#         os.path.join("output/generated_images", filename), mimetype="image/png"
+#     )
+
+
+# @app.route("/generated_images", methods=["GET"])
+# def list_generated_images():
+#     image_dir = "output/generated_images"
+#     images = [img for img in os.listdir(image_dir) if img.endswith(".png")]
+#     return jsonify({"images": images})
 
 
 @app.route("/generated_images", methods=["GET"])
 def list_generated_images():
-    image_dir = "output/generated_images"
+    image_dir = "output"
     images = [img for img in os.listdir(image_dir) if img.endswith(".png")]
     return jsonify({"images": images})
