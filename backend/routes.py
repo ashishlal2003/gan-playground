@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, send_file
+from flask import Flask, jsonify, request, send_file, send_from_directory
 import os
 from dotenv import load_dotenv
 from train.train_dcgan import train_dcgan, generate_images
@@ -16,6 +16,9 @@ def hello():
 
 dataset_path = os.getenv("DATASET_PATH")
 
+@app.route('/images/<filename>')
+def get_image(filename):
+    return send_from_directory("output", filename)
 
 @app.route("/train", methods=["POST"])
 def train():

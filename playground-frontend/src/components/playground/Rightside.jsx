@@ -31,8 +31,8 @@ export default function Rightside({ selectedDataset }) {
     };
 
     return (
-        <div className='w-[20%] hidden sm:block'>
-            <div className="bg-[#111113] w-[100%] h-screen text-white flex flex-col items-center border-gray-100 border-l-[1px] border-solid">
+        <div className='w-[20%] hidden sm:block h-full'>
+            <div className="bg-[#111113] w-[100%] h-full text-white flex flex-col items-center border-gray-100 border-l-[1px] border-solid">
                 <div className="m-8">
                     <select
                         id="model"
