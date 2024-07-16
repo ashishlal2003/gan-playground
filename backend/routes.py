@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, send_file
+from flask import Flask, jsonify, request, send_file, send_from_directory
 import os
 from dotenv import load_dotenv
 from train.train_dcgan import train_dcgan, generate_images
@@ -47,12 +47,25 @@ def generate():
 @app.route("/image/<filename>", methods=["GET"])
 def get_image(filename):
     return send_file(
-        os.path.join("output/generated_images", filename), mimetype="image/png"
+        os.path.join("output", filename), mimetype="image/png"
     )
+
+# @app.route("/image/<filename>", methods=["GET"])
+# def get_image(filename):
+#     return send_file(
+#         os.path.join("output/generated_images", filename), mimetype="image/png"
+#     )
+
+
+# @app.route("/generated_images", methods=["GET"])
+# def list_generated_images():
+#     image_dir = "output/generated_images"
+#     images = [img for img in os.listdir(image_dir) if img.endswith(".png")]
+#     return jsonify({"images": images})
 
 
 @app.route("/generated_images", methods=["GET"])
 def list_generated_images():
-    image_dir = "output/generated_images"
+    image_dir = "output"
     images = [img for img in os.listdir(image_dir) if img.endswith(".png")]
     return jsonify({"images": images})

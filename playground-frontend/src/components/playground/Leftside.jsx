@@ -8,7 +8,7 @@ export default function Leftside({ onDatasetSelect, selectedDataset }) {
     };
 
     return (
-        <div className="hidden sm:block h-screen w-[18%] border-gray-100 border-r-[1px] border-solid p-3 flex flex-col items-center bg-[#111111]">
+        <div className="hidden sm:flex h-full w-[18%] border-gray-100 border-r-[1px] border-solid p-3  flex-col items-center bg-[#111111]">
             <h5 className='text-2xl mt-8'>GAN Playground</h5>
             <ul className='w-[70%] mt-10 flex flex-col'>
                 <li className='text-gray-500 mb-4 font-bold'>Standard Dataset</li>

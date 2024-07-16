@@ -10,7 +10,7 @@ const Playground = () => {
     }
 
     return (
-        <div className='flex pt-[7.5rem] bg-black text-white h-[43.45rem]'>
+        <div className='flex pt-[7.5rem] bg-black text-white h-screen'>
             <Leftside onDatasetSelect={handleDatasetSelection} selectedDataset={dataset}/>
             <Center selectedDataset={dataset}/>
         </div>
