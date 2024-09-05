@@ -28,7 +28,7 @@ transform = transforms.Compose([
     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
 ])
 
-dataset = datasets.ImageFolder(root="C://Users//ashis//Mirror//Important_files//IIIT//Machine Learning - Personal//Generative Adveserial Networks//DCGAN//celeb_dataset", transform=transform)
+dataset = datasets.ImageFolder(root="DATASET", transform=transform)
 dataloader = DataLoader(dataset, batch_size=BATCH_SIZE, shuffle=True)
 
 # Initialize models
