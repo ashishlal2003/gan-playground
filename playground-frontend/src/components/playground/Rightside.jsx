@@ -23,6 +23,25 @@ export default function Rightside({ selectedDataset }) {
                 console.log(err);
             }
         }
+        else if (selectedModel === 'WGAN') {
+            console.log('Generating images with WGAN settings:', { learningRate, num_epochs, noiseDim, selectedDataset });
+        
+            try {
+                const res = await axios.post('http://localhost:5000/train_wgan', {
+                    num_epochs,
+                    lr: learningRate,
+                    nz: noiseDim,
+                    dataroot: selectedDataset,
+                    // clip_value: clipValue,       
+                    // critic_iters: criticIters    
+                });
+                console.log(res.data);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        
+        
     };
     
 
