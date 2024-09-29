@@ -1,6 +1,8 @@
 import torch
 import torch.nn as nn
 
+
+# Deep Convolutional GAN
 class Generator(nn.Module):
     def __init__(self, nz, ngf, nc):
         super(Generator, self).__init__()
@@ -18,11 +20,12 @@ class Generator(nn.Module):
             nn.BatchNorm2d(ngf),
             nn.ReLU(True),
             nn.ConvTranspose2d(ngf, nc, 4, 2, 1, bias=False),
-            nn.Tanh()
+            nn.Tanh(),
         )
 
     def forward(self, input):
         return self.main(input)
+
 
 class Discriminator(nn.Module):
     def __init__(self, nc, ndf):
@@ -40,7 +43,7 @@ class Discriminator(nn.Module):
             nn.BatchNorm2d(ndf * 8),
             nn.LeakyReLU(0.2, inplace=True),
             nn.Conv2d(ndf * 8, 1, 4, 1, 0, bias=False),
-            nn.Sigmoid()
+            nn.Sigmoid(),
         )
 
     def forward(self, input):
