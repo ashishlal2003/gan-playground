@@ -10,7 +10,7 @@ export default function Rightside({ selectedDataset }) {
     const handleTrain = async () => {
         if (selectedModel === 'DCGAN') {
             console.log('Generating images with settings:', { learningRate, num_epochs, noiseDim, selectedDataset });
-    
+
             try {
                 const res = await axios.post('http://localhost:5000/train', {
                     num_epochs,
@@ -23,11 +23,11 @@ export default function Rightside({ selectedDataset }) {
                 console.log(err);
             }
         }
-        else if (selectedModel === 'WGAN') {
-            console.log('Generating images with WGAN settings:', { learningRate, num_epochs, noiseDim, selectedDataset });
-        
+        else if (selectedModel === 'WGAN_GP') {
+            console.log('Generating images with WGAN GP settings:', { learningRate, num_epochs, noiseDim, selectedDataset });
+
             try {
-                const res = await axios.post('http://localhost:5000/train_wgan', {
+                const res = await axios.post('http://localhost:5000/train_wgan_gp', {
                     num_epochs,
                     lr: learningRate,
                     nz: noiseDim,
@@ -35,15 +35,32 @@ export default function Rightside({ selectedDataset }) {
                     // clip_value: clipValue,       
                     // critic_iters: criticIters    
                 });
+                console.log("working")
+                console.log(res.data);
+            } catch (err) {
+                console.log("error here")
+                console.log(err);
+            }
+        }
+
+        else if (selectedModel === 'WGAN') {
+            console.log('Generating images with WGAN settings:', { learningRate, num_epochs, noiseDim, selectedDataset });
+
+            try {
+                const res = await axios.post('http://localhost:5000/train_wgan', {
+                    num_epochs,
+                    lr: learningRate,
+                    nz: noiseDim,
+                    dataroot: selectedDataset,
+                });
                 console.log(res.data);
             } catch (err) {
                 console.log(err);
             }
         }
-        
-        
+
     };
-    
+
 
     const handleChange = (event) => {
         setSelectedModel(event.target.value);
@@ -62,6 +79,7 @@ export default function Rightside({ selectedDataset }) {
                         <option value="" disabled>Select a model</option>
                         <option value="DCGAN">DCGAN</option>
                         <option value="WGAN">WGAN</option>
+                        <option value="WGAN_GP">WGAN_GP</option>
                         <option value="GAN">GAN</option>
                     </select>
                     {selectedModel && (
