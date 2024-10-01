@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export default function Rightside({ selectedDataset }) {
     const [learningRate, setLearningRate] = useState(0.0002);
-    const [num_epochs, setnum_epochs] = useState(50);
+    const [num_epochs, setnum_epochs] = useState(5);
     const [noiseDim, setNoiseDim] = useState(100);
     const [selectedModel, setSelectedModel] = useState('');
 
