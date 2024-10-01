@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from train.train_dcgan import train_dcgan, generate_images
 from train.train_wgan_gp import train_wgan_gp
 from train.train_wgan import train_wgan
+from train.train_vanilla_gan import train_vanilla_gan
 from torchvision.utils import save_image
 
 app = Flask(__name__)
@@ -19,8 +20,22 @@ def hello():
 dataset_path = os.getenv("DATASET_PATH")
 
 
-@app.route("/train", methods=["POST"])
-def train():
+# Vanilla GAN
+@app.route("/train_vanilla_gan", methods=["POST"])
+def train_vanilla_gan_api():
+    data = request.json
+    num_epochs = data.get("num_epochs", 5)
+    lr = data.get("lr", 0.0002)
+    nz = data.get("nz", 100)
+    dataroot = dataset_path
+    print("Training starting...")
+    train_vanilla_gan(dataroot, num_epochs, lr, nz)
+    return jsonify({"message": "Training started"}), 200
+
+
+# DCGAN
+@app.route("/train_dcgan", methods=["POST"])
+def train_dcgan_api():
     data = request.json
     num_epochs = data.get("num_epochs", 5)
     lr = data.get("lr", 0.0002)
@@ -31,6 +46,7 @@ def train():
     return jsonify({"message": "Training started"}), 200
 
 
+# WGAN GP
 @app.route("/train_wgan_gp", methods=["POST"])
 def train_wgan_gp_api():
     data = request.json
@@ -46,6 +62,7 @@ def train_wgan_gp_api():
     return jsonify({"message": "WGAN GP training started"}), 200
 
 
+# WGAN
 @app.route("/train_wgan", methods=["POST"])
 def train_wgan_api():
     data = request.json

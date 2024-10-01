@@ -8,7 +8,8 @@ CORS(app)
 
 # Register routes from routes module
 app.add_url_rule("/", view_func=routes.hello)
-app.add_url_rule("/train", view_func=routes.train, methods=["POST"])
+app.add_url_rule("/train_vanilla_gan", view_func=routes.train_vanilla_gan_api, methods=["POST"])
+app.add_url_rule("/train_dcgan", view_func=routes.train_dcgan_api, methods=["POST"])
 app.add_url_rule("/train_wgan_gp", view_func=routes.train_wgan_gp_api, methods=["POST"])
 app.add_url_rule("/train_wgan", view_func=routes.train_wgan_api, methods=["POST"])
 app.add_url_rule("/generate", view_func=routes.generate, methods=["GET"])

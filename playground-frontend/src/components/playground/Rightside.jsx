@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useState } from 'react';
 import axios from 'axios';
 
 export default function Rightside({ selectedDataset }) {
@@ -59,6 +59,21 @@ export default function Rightside({ selectedDataset }) {
             }
         }
 
+        else if (selectedModel === 'GAN') {
+            console.log('Generating images with WGAN settings:', { learningRate, num_epochs, noiseDim, selectedDataset });
+
+            try {
+                const res = await axios.post('http://localhost:5000/train_vanilla_gan', {
+                    num_epochs,
+                    lr: learningRate,
+                    nz: noiseDim,
+                    dataroot: selectedDataset,
+                });
+                console.log(res.data);
+            } catch (err) {
+                console.log(err);
+            }
+        }
     };
 
 
@@ -77,10 +92,10 @@ export default function Rightside({ selectedDataset }) {
                         className="block w-full p-2.5 px-3 border border-gray-300 rounded-md bg-white text-gray-700 focus:ring-blue-500 focus:border-blue-500"
                     >
                         <option value="" disabled>Select a model</option>
+                        <option value="GAN">Vanilla GAN</option>
                         <option value="DCGAN">DCGAN</option>
                         <option value="WGAN">WGAN</option>
                         <option value="WGAN_GP">WGAN_GP</option>
-                        <option value="GAN">GAN</option>
                     </select>
                     {selectedModel && (
                         <p className="mt-3 text-sm text-gray-700">
