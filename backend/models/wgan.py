@@ -1,8 +1,9 @@
 import torch
 import torch.nn as nn
 
+# Wasserstein GAN
 
-# Wasserstein GAN with Gradient Penalty
+
 class Generator(nn.Module):
     def __init__(self, nz, ngf, nc):
         super(Generator, self).__init__()
@@ -42,14 +43,10 @@ class Critic(nn.Module):
             nn.Conv2d(ndf * 4, ndf * 8, 4, 2, 1, bias=False),
             nn.BatchNorm2d(ndf * 8),
             nn.LeakyReLU(0.2, inplace=True),
-            nn.Conv2d(ndf * 8, 1, 4, 1, 0, bias=False),
+            nn.Conv2d(ndf * 8, 1, 4, 1, 0, bias=False),  # No activation function
         )
 
     def forward(self, input):
         return self.main(input)
 
 
-# WGAN uses weight clipping, so after every Critic update, we need to clip the weights.
-def clip_weights(model, clip_value):
-    for p in model.parameters():
-        p.data.clamp_(-clip_value, clip_value)
