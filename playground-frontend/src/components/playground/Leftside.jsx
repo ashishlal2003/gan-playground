@@ -17,7 +17,7 @@ export default function Leftside({ onDatasetSelect, selectedDataset }) {
                 <li className={`items-center p-2 mt-2 text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 hover:text-white cursor-pointer ${selectedDataset === 'House' ? 'bg-gray-700 text-white' : ''}`} onClick={() => handleDatasetClick('House')}>House dataset</li>
             </ul>
 
-            <div className="flex flex-col items-start space-y-4 w-[70%] mt-32">
+            <div className="flex flex-col items-start space-y-4 w-[70%] mt-11">
                 <div className="flex flex-col space-x-4">
                     <label className="m-2 relative cursor-pointer bg-gray-700 text-white py-2 px-4 rounded-lg font-medium">
                         Upload Dataset

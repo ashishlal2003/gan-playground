@@ -23,7 +23,7 @@ def train():
 
     data = request.json
     num_epochs = data.get("num_epochs", 5)
-    lr = data.get("lr", 0.0002)
+    lr = data.get("lr", 0.0005)
     nz = data.get("nz", 100)
     dataroot = dataset_path
     print("Training starting...")
