@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export default function Rightside({ selectedDataset }) {
     const [learningRate, setLearningRate] = useState(0.0002);
-    const [num_epochs, setnum_epochs] = useState(50);
+    const [num_epochs, setnum_epochs] = useState(5);
     const [noiseDim, setNoiseDim] = useState(100);
     const [selectedModel, setSelectedModel] = useState('');
 
@@ -90,7 +90,7 @@ export default function Rightside({ selectedDataset }) {
                 </div>
 
                 <div className="grid grid-cols-1 gap-4 sm:grid-rows-3 p-5">
-                    <div>
+                    {/* <div>
                         <label className="block mb-2">Learning Rate</label>
                         <input
                             type="range"
@@ -102,21 +102,21 @@ export default function Rightside({ selectedDataset }) {
                             className="w-full"
                         />
                         <p className="text-sm">{learningRate}</p>
-                    </div>
+                    </div> */}
                     <div>
                         <label className="block mb-2">Number of Epochs</label>
                         <input
                             type="range"
-                            min={10}
-                            max={100}
-                            step={10}
+                            min={1}
+                            max={10}
+                            step={1}
                             value={num_epochs}
                             onChange={(e) => setnum_epochs(parseInt(e.target.value))}
                             className="w-full"
                         />
                         <p className="text-sm">{num_epochs}</p>
                     </div>
-                    <div>
+                    {/* <div>
                         <label className="block mb-2">Noise Dimension</label>
                         <input
                             type="range"
@@ -128,7 +128,7 @@ export default function Rightside({ selectedDataset }) {
                             className="w-full"
                         />
                         <p className="text-sm">{noiseDim}</p>
-                    </div>
+                    </div> */}
                 </div>
                 <button
                     className="mt-4 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
