@@ -1,11 +1,13 @@
 from flask import Flask, jsonify, request, send_file, send_from_directory
 import os
 from dotenv import load_dotenv
+from torchvision.utils import save_image
 from train.train_dcgan import train_dcgan, generate_images
 from train.train_wgan_gp import train_wgan_gp
 from train.train_wgan import train_wgan
 from train.train_vanilla_gan import train_vanilla_gan
-from torchvision.utils import save_image
+from train.train_style_gan import train_style_gan
+
 
 app = Flask(__name__)
 
@@ -76,6 +78,20 @@ def train_wgan_api():
     print("WGAN training starting...")
     train_wgan(dataroot, num_epochs, lr, nz)
     return jsonify({"message": "WGAN training started"}), 200
+
+
+@app.route("/train_style_gan", methods=["POST"])
+def train_style_gan_api():
+    data = request.json
+    num_epochs = data.get("num_epochs", 5)
+    lr = data.get("lr", 0.00005)
+    nz = data.get("nz", 100)
+
+    dataroot = dataset_path
+
+    print("Style GAN training starting...")
+    train_style_gan(dataroot, num_epochs, lr)
+    return jsonify({"message": "Style GAN training started"}), 200
 
 
 @app.route("/generate", methods=["GET"])

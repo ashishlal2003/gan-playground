@@ -12,6 +12,7 @@ app.add_url_rule("/train_vanilla_gan", view_func=routes.train_vanilla_gan_api, m
 app.add_url_rule("/train_dcgan", view_func=routes.train_dcgan_api, methods=["POST"])
 app.add_url_rule("/train_wgan_gp", view_func=routes.train_wgan_gp_api, methods=["POST"])
 app.add_url_rule("/train_wgan", view_func=routes.train_wgan_api, methods=["POST"])
+app.add_url_rule("/train_style_gan", view_func=routes.train_style_gan_api, methods=["POST"])
 app.add_url_rule("/generate", view_func=routes.generate, methods=["GET"])
 app.add_url_rule("/image/<filename>", view_func=routes.get_image, methods=["GET"])
 app.add_url_rule(

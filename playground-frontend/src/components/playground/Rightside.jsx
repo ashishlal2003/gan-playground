@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 export default function Rightside({ selectedDataset }) {
@@ -74,6 +74,22 @@ export default function Rightside({ selectedDataset }) {
                 console.log(err);
             }
         }
+
+        else if (selectedModel === 'Style') {
+            console.log('Generating images with WGAN settings:', { learningRate, num_epochs, noiseDim, selectedDataset });
+
+            try {
+                const res = await axios.post('http://localhost:5000/train_style_gan', {
+                    num_epochs,
+                    lr: learningRate,
+                    nz: noiseDim,
+                    dataroot: selectedDataset,
+                });
+                console.log(res.data);
+            } catch (err) {
+                console.log(err);
+            }
+        }
     };
 
 
@@ -96,6 +112,7 @@ export default function Rightside({ selectedDataset }) {
                         <option value="DCGAN">DCGAN</option>
                         <option value="WGAN">WGAN</option>
                         <option value="WGAN_GP">WGAN_GP</option>
+                        <option value="Style">Style GAN</option>
                     </select>
                     {selectedModel && (
                         <p className="mt-3 text-sm text-gray-700">
