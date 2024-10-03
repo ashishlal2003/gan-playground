@@ -104,7 +104,7 @@ def train_dcgan(dataroot, num_epochs, lr, nz):
         torch.save(netD.state_dict(), 'output/netD.pth')
 
 
-def generate_images(num_images, model_path='output/netG.pth'):
+def generate_images(num_images,nz, model_path='output/netG.pth'):
     netG = Generator(nz, ngf, nc).to(device)
     netG.load_state_dict(torch.load(model_path))
     netG.eval()

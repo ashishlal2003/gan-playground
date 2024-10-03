@@ -2,7 +2,10 @@ from flask import Flask, jsonify, request, send_file, send_from_directory
 import os
 from dotenv import load_dotenv
 from train.train_dcgan import train_dcgan, generate_images
-from train.train_wgan_gp import train_wgan
+from train.train_wgan_gp import train_wgan, generate_images_wgan
+from train.train_cgan import train_cgan
+from train.train_vgan import train_vanilla_gan
+from train.train_cycleGan import train_cyclegan
 from torchvision.utils import save_image
 
 app = Flask(__name__)
@@ -44,6 +47,47 @@ def train_wgan_api():
     train_wgan(dataroot, num_epochs, lr, nz, clip_value, critic_iters)
     return jsonify({"message": "WGAN training started"}), 200
 
+
+@app.route("/train_cgan", methods=["POST"])
+def train_cgan_api():
+    data = request.json
+    num_epochs = data.get("num_epochs", 5)
+    lr = data.get("lr", 0.0002)
+    nz = data.get("nz", 100)
+    dataroot = dataset_path
+    print("CGAN Training starting...")
+    train_cgan(dataroot, num_epochs, lr, nz)
+    return jsonify({"message": "CGAN training started"}), 200
+
+@app.route("/train_vgan", methods=["POST"])
+def train_vanilla_gan_api():
+    data = request.json
+    num_epochs = data.get("num_epochs", 5)
+    lr = data.get("lr", 0.0002)
+    nz = data.get("nz", 100)
+    dataroot = dataset_path
+    print("Vanilla GAN Training starting...")
+    train_vanilla_gan(dataroot, num_epochs, lr, nz)
+    return jsonify({"message": "Vanilla GAN training started"}), 200
+
+@app.route("/train_cyclegan", methods=["POST"])
+def train_cyclegan_api():
+    data = request.json
+    num_epochs = data.get("num_epochs", 5)
+    lr = data.get("lr", 0.0002)
+    lambda_cycle = 10.0
+    lambda_identity =  0.5
+    dataroot = dataset_path
+    print("CycleGAN Training starting...")
+    dataroot = dataset_path
+    # Check if dataset paths exist
+    if not os.path.exists(dataroot) or not os.path.exists(dataroot):
+        return jsonify({"error": "Dataset paths are invalid."}), 400
+
+    # Start training CycleGAN
+    train_cyclegan(dataroot, dataroot, num_epochs, lr, lambda_cycle, lambda_identity)
+
+    return jsonify({"message": "CycleGAN training started"}), 200
 
 
 @app.route("/generate", methods=["GET"])
