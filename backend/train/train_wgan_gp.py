@@ -6,6 +6,8 @@ from torchvision import datasets, transforms
 from torchvision.utils import save_image
 import os
 from dotenv import load_dotenv
+GREEN = '\033[92m'
+RESET = '\033[0m'  
 
 load_dotenv()
 
@@ -37,7 +39,9 @@ def clip_weights(model, clip_value):
         p.data.clamp_(-clip_value, clip_value)
 
 
-def train_wgan(dataroot, num_epochs, lr, nz, clip_value=0.01, critic_iters=5):
+def train_wgan_gp(dataroot, num_epochs, lr, nz, clip_value=0.01, critic_iters=5):
+
+    print(f"{GREEN}Train WGAN GP function is called{RESET}")
     dataset = datasets.ImageFolder(root=dataroot, transform=transform)
     dataloader = DataLoader(dataset, batch_size=128, shuffle=True, num_workers=4)
 

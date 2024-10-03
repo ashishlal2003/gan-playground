@@ -2,49 +2,61 @@ from flask import Flask, jsonify, request, send_file, send_from_directory
 import os
 from dotenv import load_dotenv
 from train.train_dcgan import train_dcgan, generate_images
-from train.train_wgan_gp import train_wgan, generate_images_wgan
+from train.train_wgan_gp import train_wgan_gp, generate_images_wgan
+from train.train_wgan import train_wgan
 from train.train_cgan import train_cgan
 from train.train_vgan import train_vanilla_gan
 from train.train_cycleGan import train_cyclegan
 from torchvision.utils import save_image
 
 app = Flask(__name__)
-
 load_dotenv()
-
-
 @app.route("/")
 def hello():
     return "Hello, World!"
-
 
 dataset_path = os.getenv("DATASET_PATH")
 
 
 @app.route("/train", methods=["POST"])
 def train():
-
     data = request.json
     num_epochs = data.get("num_epochs", 5)
-    lr = data.get("lr", 0.0002)
+    lr = data.get("lr", 0.0005)
     nz = data.get("nz", 100)
     dataroot = dataset_path
     print("Training starting...")
     train_dcgan(dataroot, num_epochs, lr, nz)
     return jsonify({"message": "Training started"}), 200
 
+
+@app.route("/train_wgan_gp", methods=["POST"])
+def train_wgan_gp_api():
+    data = request.json
+    num_epochs = data.get("num_epochs", 5)
+    lr = data.get("lr", 0.00005)
+    nz = data.get("nz", 100)
+    clip_value = data.get("clip_value", 0.01)
+    critic_iters = data.get("critic_iters", 5)
+    dataroot = dataset_path
+
+    print("WGAN GP training starting...")
+    train_wgan_gp(dataroot, num_epochs, lr, nz, clip_value, critic_iters)
+    return jsonify({"message": "WGAN GP training started"}), 200
+
+
 @app.route("/train_wgan", methods=["POST"])
 def train_wgan_api():
     data = request.json
     num_epochs = data.get("num_epochs", 5)
-    lr = data.get("lr", 0.00005)  
+    lr = data.get("lr", 0.00005)
     nz = data.get("nz", 100)
-    clip_value = data.get("clip_value", 0.01)  
-    critic_iters = data.get("critic_iters", 5) 
+    # clip_value = data.get("clip_value", 0.01)
+    # critic_iters = data.get("critic_iters", 5)
     dataroot = dataset_path
 
     print("WGAN training starting...")
-    train_wgan(dataroot, num_epochs, lr, nz, clip_value, critic_iters)
+    train_wgan(dataroot, num_epochs, lr, nz)
     return jsonify({"message": "WGAN training started"}), 200
 
 
@@ -106,9 +118,8 @@ def generate():
 
 @app.route("/image/<filename>", methods=["GET"])
 def get_image(filename):
-    return send_file(
-        os.path.join("output", filename), mimetype="image/png"
-    )
+    return send_file(os.path.join("output", filename), mimetype="image/png")
+
 
 # @app.route("/image/<filename>", methods=["GET"])
 # def get_image(filename):

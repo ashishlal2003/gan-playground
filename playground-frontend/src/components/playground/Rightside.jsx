@@ -3,14 +3,14 @@ import axios from 'axios';
 
 export default function Rightside({ selectedDataset }) {
     const [learningRate, setLearningRate] = useState(0.0002);
-    const [num_epochs, setnum_epochs] = useState(50);
+    const [num_epochs, setnum_epochs] = useState(5);
     const [noiseDim, setNoiseDim] = useState(100);
     const [selectedModel, setSelectedModel] = useState('');
 
     const handleTrain = async () => {
         if (selectedModel === 'DCGAN') {
             console.log('Generating images with settings:', { learningRate, num_epochs, noiseDim, selectedDataset });
-    
+
             try {
                 const res = await axios.post('http://localhost:5000/train', {
                     num_epochs,
@@ -23,11 +23,11 @@ export default function Rightside({ selectedDataset }) {
                 console.log(err);
             }
         }
-        else if (selectedModel === 'WGAN') {
-            console.log('Generating images with WGAN settings:', { learningRate, num_epochs, noiseDim, selectedDataset });
-        
+        else if (selectedModel === 'WGAN_GP') {
+            console.log('Generating images with WGAN GP settings:', { learningRate, num_epochs, noiseDim, selectedDataset });
+
             try {
-                const res = await axios.post('http://localhost:5000/train_wgan', {
+                const res = await axios.post('http://localhost:5000/train_wgan_gp', {
                     num_epochs,
                     lr: learningRate,
                     nz: noiseDim,
@@ -35,45 +35,63 @@ export default function Rightside({ selectedDataset }) {
                     // clip_value: clipValue,       
                     // critic_iters: criticIters    
                 });
+                console.log("working")
+                console.log(res.data);
+            } catch (err) {
+                console.log("error here")
+                console.log(err);
+            }
+        }
+
+        else if (selectedModel === 'WGAN') {
+            console.log('Generating images with WGAN settings:', { learningRate, num_epochs, noiseDim, selectedDataset });
+
+            try {
+                const res = await axios.post('http://localhost:5000/train_wgan', {
+                    num_epochs,
+                    lr: learningRate,
+                    nz: noiseDim,
+                    dataroot: selectedDataset,
+                });
                 console.log(res.data);
             } catch (err) {
                 console.log(err);
             }
         }
         else if (selectedModel === 'CGAN') {
-            console.log('Generating images with CGAN settings:', { learningRate, num_epochs, noiseDim, selectedDataset });
-        
+            console.log('Generating images with WGAN settings:', { learningRate, num_epochs, noiseDim, selectedDataset });
+
             try {
                 const res = await axios.post('http://localhost:5000/train_cgan', {
                     num_epochs,
                     lr: learningRate,
                     nz: noiseDim,
-                    dataroot: selectedDataset
-                });
-                console.log(res.data);
-            } catch (err) {
-                console.log(err);
-            }
-        } else if (selectedModel === 'VGAN') {
-            console.log('Generating images with Vanilla GAN settings:', { learningRate, num_epochs, noiseDim, selectedDataset });
-        
-            try {
-                const res = await axios.post('http://localhost:5000/train_vgan', {
-                    num_epochs,
-                    lr: learningRate,
-                    nz: noiseDim,
-                    dataroot: selectedDataset
+                    dataroot: selectedDataset,
                 });
                 console.log(res.data);
             } catch (err) {
                 console.log(err);
             }
         }
-        
-        
-        
+
+        else if (selectedModel === 'VGAN') {
+            console.log('Generating images with WGAN settings:', { learningRate, num_epochs, noiseDim, selectedDataset });
+
+            try {
+                const res = await axios.post('http://localhost:5000/train_vgan', {
+                    num_epochs,
+                    lr: learningRate,
+                    nz: noiseDim,
+                    dataroot: selectedDataset,
+                });
+                console.log(res.data);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+
     };
-    
+
 
     const handleChange = (event) => {
         setSelectedModel(event.target.value);
@@ -95,6 +113,8 @@ export default function Rightside({ selectedDataset }) {
                         <option value="CGAN">CGAN</option>
                         <option value="VGAN">Vanilla GAN</option>
                        
+                        <option value="WGAN_GP">WGAN_GP</option>
+                        <option value="GAN">GAN</option>
                     </select>
                     {selectedModel && (
                         <p className="mt-3 text-sm text-gray-700">
@@ -104,7 +124,7 @@ export default function Rightside({ selectedDataset }) {
                 </div>
 
                 <div className="grid grid-cols-1 gap-4 sm:grid-rows-3 p-5">
-                    <div>
+                    {/* <div>
                         <label className="block mb-2">Learning Rate</label>
                         <input
                             type="range"
@@ -116,21 +136,21 @@ export default function Rightside({ selectedDataset }) {
                             className="w-full"
                         />
                         <p className="text-sm">{learningRate}</p>
-                    </div>
+                    </div> */}
                     <div>
                         <label className="block mb-2">Number of Epochs</label>
                         <input
                             type="range"
-                            min={10}
-                            max={100}
-                            step={10}
+                            min={1}
+                            max={10}
+                            step={1}
                             value={num_epochs}
                             onChange={(e) => setnum_epochs(parseInt(e.target.value))}
                             className="w-full"
                         />
                         <p className="text-sm">{num_epochs}</p>
                     </div>
-                    <div>
+                    {/* <div>
                         <label className="block mb-2">Noise Dimension</label>
                         <input
                             type="range"
@@ -142,7 +162,7 @@ export default function Rightside({ selectedDataset }) {
                             className="w-full"
                         />
                         <p className="text-sm">{noiseDim}</p>
-                    </div>
+                    </div> */}
                 </div>
                 <button
                     className="mt-4 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"

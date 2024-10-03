@@ -47,7 +47,7 @@ os.makedirs(output_dir, exist_ok=True)
 
 
 # Modify the train_dcgan function to accept dataroot as a parameter
-def train_dcgan(dataroot, num_epochs, lr, nz):
+def train_dcgan(dataroot, num_epochs, lr=0.0005, nz=100):
     dataset = datasets.ImageFolder(root=dataroot, transform=transform)
     dataloader = DataLoader(dataset, batch_size=128, shuffle=True, num_workers=4)
 
