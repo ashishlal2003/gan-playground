@@ -97,7 +97,7 @@ def train_wgan_gp(dataroot, num_epochs, lr, nz, clip_value=0.01, critic_iters=5)
         torch.save(netC.state_dict(), 'output/netC.pth')
 
 
-def generate_images(num_images, nz, model_path='output/netG_wgan.pth'):
+def generate_images_wgan(num_images, nz, model_path='output/netG_wgan.pth'):
     netG = Generator(nz, ngf, nc).to(device)
     netG.load_state_dict(torch.load(model_path))
     netG.eval()

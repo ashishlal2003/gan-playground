@@ -58,6 +58,37 @@ export default function Rightside({ selectedDataset }) {
                 console.log(err);
             }
         }
+        else if (selectedModel === 'CGAN') {
+            console.log('Generating images with WGAN settings:', { learningRate, num_epochs, noiseDim, selectedDataset });
+
+            try {
+                const res = await axios.post('http://localhost:5000/train_cgan', {
+                    num_epochs,
+                    lr: learningRate,
+                    nz: noiseDim,
+                    dataroot: selectedDataset,
+                });
+                console.log(res.data);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+
+        else if (selectedModel === 'VGAN') {
+            console.log('Generating images with WGAN settings:', { learningRate, num_epochs, noiseDim, selectedDataset });
+
+            try {
+                const res = await axios.post('http://localhost:5000/train_vgan', {
+                    num_epochs,
+                    lr: learningRate,
+                    nz: noiseDim,
+                    dataroot: selectedDataset,
+                });
+                console.log(res.data);
+            } catch (err) {
+                console.log(err);
+            }
+        }
 
     };
 
@@ -79,6 +110,9 @@ export default function Rightside({ selectedDataset }) {
                         <option value="" disabled>Select a model</option>
                         <option value="DCGAN">DCGAN</option>
                         <option value="WGAN">WGAN</option>
+                        <option value="CGAN">CGAN</option>
+                        <option value="VGAN">Vanilla GAN</option>
+                       
                         <option value="WGAN_GP">WGAN_GP</option>
                         <option value="GAN">GAN</option>
                     </select>
