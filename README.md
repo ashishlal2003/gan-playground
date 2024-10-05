@@ -50,6 +50,14 @@ Visit the GAN Playground at [gan-playground.vercel.app](https://gan-playground.v
     pip install -r requirements.txt
     ```
 
+    To install the required packages with CUDA support (cu117), follow these steps:
+
+    1. Make sure you have the correct CUDA version installed (CUDA 11.7).
+    2. Run the following command to install the required packages:
+        ```bash
+        pip install -r requirements.txt --index-url https://download.pytorch.org/whl/cu117
+        ```
+
 3. **Frontend setup:**
     ```bash
     cd ../frontend
