@@ -61,9 +61,10 @@ def train_wgan_api():
     return jsonify({"message": "WGAN training started"}), 200
 
 
-@app.route("/generate", methods=["GET"])
-def generate():
-    num_images = int(request.json.get("num_images", 1))
+@app.route("/generate_dcgan", methods=["GET"])
+def generate_dcgan():
+    # Get the number of images from query parameters
+    num_images = int(request.args.get("num_images", 1))  # Changed to request.args
     model_path = os.path.join("model_files_dir_dcgan", "netG.pth")
     fake_images = generate_images(num_images, model_path)
     output_dir = "output/generated_images"
@@ -74,6 +75,7 @@ def generate():
         save_image(image, file_path, normalize=True)
         file_paths.append(file_path)
     return jsonify({"images": file_paths}), 200
+
 
 
 @app.route("/image/<filename>", methods=["GET"])

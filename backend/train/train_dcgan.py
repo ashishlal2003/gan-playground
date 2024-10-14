@@ -45,7 +45,7 @@ transform = transforms.Compose([
 output_dir = 'output'
 os.makedirs(output_dir, exist_ok=True)
 
-model_files_dir_dcgan = 'model_files'
+model_files_dir_dcgan = 'model_files_dir_dcgan'
 os.makedirs(model_files_dir_dcgan, exist_ok=True)
 
 
