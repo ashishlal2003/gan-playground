@@ -3,24 +3,27 @@ import axios from 'axios';
 
 function Gallery() {
   const [selectedModel, setSelectedModel] = useState('');
-  const[generatedImages, setGeneratedImages] = useState([]);
+  const [generatedImages, setGeneratedImages] = useState([]);
 
   const handleChange = (e) => {
     setSelectedModel(e.target.value);
   };
 
-  const handleGeneratedImages = async() => {
-    try {
-      const response = await axios.get('http://localhost:5000/generate_dcgan', {
-        params: {
-          num_images: 1
-        }
-      });
-      setGeneratedImages(response.data.images);
-    } catch (error) {
-      console.log("Error generating images:",error); 
-    }
-  }
+  const handleGeneratedImages = async () => {
+      try {
+          const response = await axios.get('http://localhost:5000/generate_dcgan', {
+              params: {
+                  num_images: 1
+              }
+          });
+          const newImageName = response.data.images[0]; // Assuming this is the name of the new image
+          const timestamp = new Date().getTime(); // Create a unique timestamp
+          setGeneratedImages([`${newImageName}?t=${timestamp}`]); // Append timestamp to the image URL
+      } catch (error) {
+          console.log("Error generating images:", error);
+      }
+  };
+
 
   return (
     <div className="bg-gray-900 text-white w-full h-screen flex flex-col items-center px-4">
@@ -54,18 +57,20 @@ function Gallery() {
         {/* Right Section: Image Display */}
         <div className='h-full flex-1 flex items-center justify-center p-8'>
           <div className="flex flex-col items-center justify-center">
-          <p className="text-lg mb-4">Generated Image Appears Here</p>
-            {generatedImages.length > 0 ? (
-              <div className="bg-gray-700 h-48 w-48 md:h-64 md:w-64 rounded-md flex items-center justify-center">
-                <img src={generatedImages[0]} alt="Generated" className="h-full w-full object-cover rounded-md" />
+              <p className="text-lg mb-4">Generated Images</p>
+              <div className="flex flex-wrap justify-center">
+                  {generatedImages.map((image, index) => (
+                      <img
+                          key={index}
+                          src={`http://localhost:5000/output/generated_images_dcgan/${image}`} // Use updated image URL
+                          className="h-48 w-48 md:h-64 md:w-64 rounded-md m-2"
+                          alt={`Generated ${index + 1}`}
+                      />
+                  ))}
               </div>
-            ) : (
-              <div className="bg-gray-700 h-48 w-48 md:h-64 md:w-64 rounded-md flex items-center justify-center">
-                <span className="text-gray-400">[Image Placeholder]</span>
-              </div>
-            )}
           </div>
         </div>
+
       </div>
     </div>
   );

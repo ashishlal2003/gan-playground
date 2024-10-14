@@ -16,6 +16,7 @@ app.add_url_rule("/image/<filename>", view_func=routes.get_image, methods=["GET"
 app.add_url_rule(
     "/generated_images", view_func=routes.list_generated_images, methods=["GET"]
 )
+app.add_url_rule("/output/generated_images_dcgan/<filename>", view_func=routes.send_generated_image, methods=["GET"])
 
 if __name__ == "__main__":
     multiprocessing.set_start_method("spawn")
