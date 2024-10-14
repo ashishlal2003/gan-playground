@@ -45,6 +45,9 @@ transform = transforms.Compose([
 output_dir = 'output'
 os.makedirs(output_dir, exist_ok=True)
 
+model_files_dir_dcgan = 'model_files'
+os.makedirs(model_files_dir_dcgan, exist_ok=True)
+
 
 # Modify the train_dcgan function to accept dataroot as a parameter
 def train_dcgan(dataroot, num_epochs, lr=0.0005, nz=100):
@@ -100,11 +103,11 @@ def train_dcgan(dataroot, num_epochs, lr=0.0005, nz=100):
         save_image(fake.data[:64], f'output/fake_samples_step_{i:03d}.png', normalize=True)
 
         # Save models
-        torch.save(netG.state_dict(), 'output/netG.pth')
-        torch.save(netD.state_dict(), 'output/netD.pth')
+        torch.save(netG.state_dict(), 'model_files_dir_dcgan/netG.pth')
+        torch.save(netD.state_dict(), 'model_files_dir_dcgan/netD.pth')
 
 
-def generate_images(num_images, model_path='output/netG.pth'):
+def generate_images(num_images, model_path='model_files_dir_dcgan/netG.pth', nz=100):
     netG = Generator(nz, ngf, nc).to(device)
     netG.load_state_dict(torch.load(model_path))
     netG.eval()

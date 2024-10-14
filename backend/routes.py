@@ -64,7 +64,8 @@ def train_wgan_api():
 @app.route("/generate", methods=["GET"])
 def generate():
     num_images = int(request.json.get("num_images", 1))
-    fake_images = generate_images(num_images)
+    model_path = os.path.join("model_files_dir_dcgan", "netG.pth")
+    fake_images = generate_images(num_images, model_path)
     output_dir = "output/generated_images"
     os.makedirs(output_dir, exist_ok=True)
     file_paths = []
