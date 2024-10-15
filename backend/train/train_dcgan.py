@@ -97,7 +97,7 @@ def train_dcgan(dataroot, num_epochs, lr=0.0005, nz=100):
                 print(f'[{epoch}/{num_epochs}][{i}/{len(dataloader)}] Loss_D: {errD.item():.4f} Loss_G: {errG.item():.4f} D(x): {D_x:.4f} D(G(z)): {D_G_z1:.4f} / {D_G_z2:.4f}')
         # Save fake images generated at each epoch
                 try:
-                    save_image(fake.data[:64], os.path.join(output_dir, f'fake_samples_step_{i:03d}.png'), normalize=True)
+                    save_image(fake.data[:64], os.path.join(output_dir, f'fake_samples_epoch_{epoch:03d}_step_{i:03d}.png'), normalize=True)
                 except Exception as e:
                     print(f"Error saving image at i {i}: {e}")
         save_image(fake.data[:64], f'output/fake_samples_step_{i:03d}.png', normalize=True)
