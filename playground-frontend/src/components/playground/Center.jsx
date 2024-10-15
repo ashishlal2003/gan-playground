@@ -11,7 +11,7 @@ export default function Center({ selectedDataset }) {
     // Fetch images from the server
     const fetchImages = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/generated_images');
+            const response = await axios.get('https://gan-playground-flask-app.onrender.com/generated_images');
             if (response.data.images && response.data.images.length > 0) {
                 setImages(response.data.images);
                 setCurrentIndex(response.data.images.length - 1); // Set to the latest image
@@ -69,7 +69,7 @@ export default function Center({ selectedDataset }) {
                 <div className="h-[400px] w-[400px] overflow-auto">
                     {images.length > 0 ? (
                         <img
-                            src={`http://localhost:5000/image/${images[currentIndex]}`}
+                            src={`https://gan-playground-flask-app.onrender.com/image/${images[currentIndex]}`}
                             alt={`Fake ${currentIndex}`}
                             className="w-full h-auto my-2"
                         />
