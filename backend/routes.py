@@ -75,7 +75,8 @@ def send_generated_image(filename):
 
 @app.route("/generated_images", methods=["GET"])
 def list_generated_images():
-    image_dir = "output/generated_images_dcgan"
+    os.makedirs("output/generated_images_dcgan", exist_ok=True)
+    image_dir = "output"
     images = [img for img in os.listdir(image_dir) if img.endswith(".png")]
     return jsonify({"images": images})
 
