@@ -11,7 +11,7 @@ function Gallery() {
 
   const handleGeneratedImages = async () => {
       try {
-          const response = await axios.get('https://gan-playground-flask-app.onrender.com/generate_dcgan', {
+          const response = await axios.get('http://localhost:5000/generate_dcgan', {
               params: {
                   num_images: 1
               }
@@ -62,7 +62,7 @@ function Gallery() {
                   {generatedImages.map((image, index) => (
                       <img
                           key={index}
-                          src={`https://gan-playground-flask-app.onrender.com/output/generated_images_dcgan/${image}`} // Use updated image URL
+                          src={`http://localhost:5000/output/generated_images_dcgan/${image}`} // Use updated image URL
                           className="h-48 w-48 md:h-64 md:w-64 rounded-md m-2"
                           alt={`Generated ${index + 1}`}
                       />
