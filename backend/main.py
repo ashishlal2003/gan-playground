@@ -22,4 +22,4 @@ app.add_url_rule("/output/generated_images_wgangp/<filename>", view_func=routes.
 
 if __name__ == "__main__":
     multiprocessing.set_start_method("spawn")
-    app.run(debug=False)
+    app.run(debug=True)
