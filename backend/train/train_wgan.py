@@ -16,6 +16,7 @@ from models.wgan import Generator, Critic
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+
 ngf = 64
 ndf = 64
 nc = int(os.getenv("nc"))
@@ -34,6 +35,9 @@ transform = transforms.Compose(
 
 output_dir = "output"
 os.makedirs(output_dir, exist_ok=True)
+
+model_files_dir_wgan = "model_files_dir_wgan"
+os.makedirs(model_files_dir_wgan, exist_ok=True)
 
 
 def weight_clipping(model, clip_value):
@@ -93,25 +97,23 @@ def train_wgan(dataroot, num_epochs, lr, nz):
             # Save fake images generated at each epoch
             if i % 50 == 0:
                 try:
-                    save_image(
-                        fake.data[:64],
-                        os.path.join(output_dir, f"fake_samples_step_{i:03d}.png"),
-                        normalize=True,
-                    )
+                    save_image(fake.data[:64], os.path.join(output_dir, f'fake_samples_epoch_{epoch:03d}_step_{i:03d}.png'), normalize=True)
                 except Exception as e:
                     print(f"Error saving image at i {i}: {e}")
 
         # Save models
-        torch.save(netG.state_dict(), "output/netG.pth")
-        torch.save(netC.state_dict(), "output/netC.pth")
+        torch.save(netG.state_dict(), os.path.join(model_files_dir_wgan, 'netG.pth'))
+        torch.save(netC.state_dict(), os.path.join(model_files_dir_wgan, 'netC.pth'))
 
 
-def generate_images(num_images, nz, model_path="output/netG_wgan.pth"):
+
+def generate_images(num_images, model_path="model_files_dir_wgan/netG_wgan.pth", nz=100):
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     netG = Generator(nz, ngf, nc).to(device)
     netG.load_state_dict(torch.load(model_path))
     netG.eval()
 
     noise = torch.randn(num_images, nz, 1, 1, device=device)
     with torch.no_grad():
-        fake_images = netG(noise).detach().cpu()
+        fake_images = netG(noise).detach().cpu()    
     return fake_images
