@@ -6,12 +6,15 @@ from torchvision import datasets, transforms
 from torchvision.utils import save_image
 import os
 from dotenv import load_dotenv
+GREEN = '\033[92m'
+RESET = '\033[0m'  
 
 load_dotenv()
 
 from models.dcgan import Generator, Discriminator
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
 
 # Hyperparameters
 # nz = 100  # Size of z latent vector (i.e. size of generator input)
@@ -97,10 +100,10 @@ def train_dcgan(dataroot, num_epochs, lr=0.0005, nz=100):
                 print(f'[{epoch}/{num_epochs}][{i}/{len(dataloader)}] Loss_D: {errD.item():.4f} Loss_G: {errG.item():.4f} D(x): {D_x:.4f} D(G(z)): {D_G_z1:.4f} / {D_G_z2:.4f}')
         # Save fake images generated at each epoch
                 try:
-                    save_image(fake.data[:64], os.path.join(output_dir, f'fake_samples_step_{i:03d}.png'), normalize=True)
+                    save_image(fake.data[:64], os.path.join(output_dir, f'fake_samples_epoch_{epoch:03d}_step_{i:03d}.png'), normalize=True)
                 except Exception as e:
                     print(f"Error saving image at i {i}: {e}")
-        save_image(fake.data[:64], f'output/fake_samples_step_{i:03d}.png', normalize=True)
+        save_image(fake.data[:64], f'output/fake_samples_epoch_{epoch:03d}_step_{i:03d}.png', normalize=True)
 
         # Save models
         torch.save(netG.state_dict(), 'model_files_dir_dcgan/netG.pth')

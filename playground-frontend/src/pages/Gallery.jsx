@@ -10,8 +10,13 @@ function Gallery() {
   };
 
   const handleGeneratedImages = async () => {
+      if(!selectedModel){
+        alert('Please select a model first');
+        return;
+      }
+
       try {
-          const response = await axios.get('http://localhost:5000/generate_dcgan', {
+          const response = await axios.get(`http://localhost:5000/generate_${selectedModel}`, {
               params: {
                   num_images: 1
               }
@@ -38,9 +43,9 @@ function Gallery() {
             className="block w-full md:w-2/3 p-3 border border-gray-300 rounded-md bg-white text-gray-700 focus:ring-blue-500 focus:border-blue-500"
           >
             <option value="" disabled>Select a model</option>
-            <option value="DCGAN">DCGAN</option>
-            <option value="WGAN">WGAN</option>
-            <option value="WGAN_GP">WGAN_GP</option>
+            <option value="dcgan">DCGAN</option>
+            <option value="wgan">WGAN</option>
+            <option value="wgangp">WGAN_GP</option>
             <option value="GAN">GAN</option>
           </select>
           {selectedModel && (

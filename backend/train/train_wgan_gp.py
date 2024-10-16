@@ -15,6 +15,7 @@ from models.wgan_gp import Generator, Critic
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+
 # Hyperparameters
 ngf = 64  # Size of feature maps in generator
 ndf = 64  # Size of feature maps in critic
@@ -25,6 +26,9 @@ critic_iters = 5  # Number of Critic updates per Generator update
 # Output directory
 output_dir = 'output'
 os.makedirs(output_dir, exist_ok=True)
+
+model_files_dir_wgan_gp = 'model_files_dir_wgangp'
+os.makedirs(model_files_dir_wgan_gp, exist_ok=True)
 
 transform = transforms.Compose([
     transforms.Resize(64),
@@ -88,16 +92,16 @@ def train_wgan_gp(dataroot, num_epochs, lr, nz, clip_value=0.01, critic_iters=5)
                 print(f'[{epoch}/{num_epochs}][{i}/{len(dataloader)}] Loss_C: {errC.item():.4f} Loss_G: {errG.item():.4f}')
                 
                 try:
-                    save_image(fake.data[:64], os.path.join(output_dir, f'fake_samples_step_{i:03d}.png'), normalize=True)
+                    save_image(fake.data[:64], os.path.join(output_dir, f'fake_samples_epoch_{epoch:03d}_step_{i:03d}.png'), normalize=True)
                 except Exception as e:
                     print(f"Error saving image at i {i}: {e}")
 
         # Save models
-        torch.save(netG.state_dict(), 'output/netG_wgan.pth')
-        torch.save(netC.state_dict(), 'output/netC.pth')
+        torch.save(netG.state_dict(), 'output/model_files_dir_wgangp/netG_wgan.pth')
+        torch.save(netC.state_dict(), 'output/model_files_dir_wgangp/netC.pth')
 
 
-def generate_images(num_images, nz, model_path='output/netG_wgan.pth'):
+def generate_images(num_images, nz, model_path='model_files_dir_wgangp/netG_wgan.pth'):
     netG = Generator(nz, ngf, nc).to(device)
     netG.load_state_dict(torch.load(model_path))
     netG.eval()
