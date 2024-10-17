@@ -110,7 +110,7 @@ def train_wgan(dataroot, num_epochs, lr, nz):
 def generate_images(num_images, model_path="model_files_dir_wgan/netG_wgan.pth", nz=100):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     netG = Generator(nz, ngf, nc).to(device)
-    netG.load_state_dict(torch.load(model_path))
+    netG.load_state_dict(torch.load(model_path, map_location=device))
     netG.eval()
 
     noise = torch.randn(num_images, nz, 1, 1, device=device)

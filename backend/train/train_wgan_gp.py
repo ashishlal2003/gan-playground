@@ -103,7 +103,7 @@ def train_wgan_gp(dataroot, num_epochs, lr, nz, clip_value=0.01, critic_iters=5)
 
 def generate_images(num_images, model_path='model_files_dir_wgangp/netG_wgan.pth', nz=100):
     netG = Generator(nz, ngf, nc).to(device)
-    netG.load_state_dict(torch.load(model_path))
+    netG.load_state_dict(torch.load(model_path, map_location=device))
     netG.eval()
 
     noise = torch.randn(num_images, nz, 1, 1, device=device)

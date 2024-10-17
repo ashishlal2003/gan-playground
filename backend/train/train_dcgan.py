@@ -112,7 +112,7 @@ def train_dcgan(dataroot, num_epochs, lr=0.0005, nz=100):
 
 def generate_images(num_images, model_path='model_files_dir_dcgan/netG.pth', nz=100):
     netG = Generator(nz, ngf, nc).to(device)
-    netG.load_state_dict(torch.load(model_path))
+    netG.load_state_dict(torch.load(model_path, map_location=device))
     netG.eval()
     
     noise = torch.randn(num_images, nz, 1, 1, device=device)
