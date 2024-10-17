@@ -16,7 +16,7 @@ function Gallery() {
       }
 
       try {
-          const response = await axios.get(`http://localhost:5000/generate_${selectedModel}`, {
+          const response = await axios.get(`http://15.206.94.196:5000/generate_${selectedModel}`, {
               params: {
                   num_images: 1
               }
@@ -69,7 +69,7 @@ function Gallery() {
                 generatedImages.map((image, index) => (
                     <img
                         key={index}
-                        src={`http://localhost:5000/output/generated_images_${selectedModel}/${image}`}
+                        src={`http://15.206.94.196:5000/output/generated_images_${selectedModel}/${image}`}
                         className="h-32 w-32 md:h-48 md:w-48 lg:h-64 lg:w-64 rounded-md m-2"
                         alt={`Generated ${index + 1}`}
                     />
