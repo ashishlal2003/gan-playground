@@ -16,7 +16,7 @@ function Gallery() {
       }
 
       try {
-          const response = await axios.get(`https://ganplaygroundbackend.me/generate_${selectedModel}`, {
+          const response = await axios.get(`https://gan-playground-flask-app.onrender.com/generate_${selectedModel}`, {
               params: {
                   num_images: 1
               }
@@ -69,7 +69,7 @@ function Gallery() {
                 generatedImages.map((image, index) => (
                     <img
                         key={index}
-                        src={`https://ganplaygroundbackend.me/output/generated_images_${selectedModel}/${image}`}
+                        src={`https://gan-playground-flask-app.onrender.com/output/generated_images_${selectedModel}/${image}`}
                         className="h-32 w-32 md:h-48 md:w-48 lg:h-64 lg:w-64 rounded-md m-2"
                         alt={`Generated ${index + 1}`}
                     />

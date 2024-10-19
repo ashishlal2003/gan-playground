@@ -12,7 +12,7 @@ export default function Rightside({ selectedDataset }) {
             console.log('Generating images with settings:', { learningRate, num_epochs, noiseDim, selectedDataset });
 
             try {
-                const res = await axios.post('https://ganplaygroundbackend.me/train', {
+                const res = await axios.post('https://gan-playground-flask-app.onrender.com/train', {
                     num_epochs,
                     lr: learningRate,
                     nz: noiseDim,
@@ -27,7 +27,7 @@ export default function Rightside({ selectedDataset }) {
             console.log('Generating images with WGAN GP settings:', { learningRate, num_epochs, noiseDim, selectedDataset });
 
             try {
-                const res = await axios.post('https://ganplaygroundbackend.me/train_wgan_gp', {
+                const res = await axios.post('https://gan-playground-flask-app.onrender.com/train_wgan_gp', {
                     num_epochs,
                     lr: learningRate,
                     nz: noiseDim,
@@ -47,7 +47,7 @@ export default function Rightside({ selectedDataset }) {
             console.log('Generating images with WGAN settings:', { learningRate, num_epochs, noiseDim, selectedDataset });
 
             try {
-                const res = await axios.post('https://ganplaygroundbackend.me/train_wgan', {
+                const res = await axios.post('https://gan-playground-flask-app.onrender.com/train_wgan', {
                     num_epochs,
                     lr: learningRate,
                     nz: noiseDim,
